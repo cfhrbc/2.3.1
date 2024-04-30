@@ -6,8 +6,6 @@ public class Car {
     private String model;
     private int year;
 
-    public Car() {
-    }
 
     public Car(String brand, String model, int year) {
         this.brand = brand;
