@@ -63,4 +63,28 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (age != user.age) return false;
+        if (!name.equals(user.name)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        return email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + age;
+        result = 31 * result + email.hashCode();
+        return result;
+    }
 }

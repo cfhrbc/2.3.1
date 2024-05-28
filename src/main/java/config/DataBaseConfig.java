@@ -12,7 +12,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -41,7 +40,7 @@ public class DataBaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("model");
+        em.setPackagesToScan("dao", "model", "service");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -51,9 +50,9 @@ public class DataBaseConfig {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+    public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
+        transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
 
         return transactionManager;
     }

@@ -12,8 +12,10 @@ import service.UserService;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
+
+    public UserController(UserService userService) { this.userService = userService; }
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
@@ -22,32 +24,20 @@ public class UserController {
     }
 
     @PostMapping("/users/add")
-    public String addUser(@RequestParam("name") String name,
-                          @RequestParam("lastName") String lastName,
-                          @RequestParam("age") int age,
-                          @RequestParam("email") String email) {
-        User user = new User();
-        user.setName(name);
-        user.setLastName(lastName);
-        user.setAge(age);
-        user.setEmail(email);
+    public String addUser(User user) {
         userService.saveUser(user);
         return "redirect:/users";
     }
 
     @PostMapping("/users/update")
-    public String updateUser(@RequestParam("id") long id,
-                             @RequestParam("name") String name,
-                             @RequestParam("lastName") String lastName,
-                             @RequestParam("age") int age,
-                             @RequestParam("email") String email) {
-        User user = userService.getUserById(id);
-        if (user != null) {
-            user.setName(name);
-            user.setLastName(lastName);
-            user.setAge(age);
-            user.setEmail(email);
-            userService.updateUser(user);
+    public String updateUser(@RequestParam("id") long id, User user) {
+        User existingUser = userService.getUserById(id);
+        if (existingUser != null) {
+            existingUser.setName(user.getName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setAge(user.getAge());
+            existingUser.setEmail(user.getEmail());
+            userService.updateUser(existingUser);
         }
         return "redirect:/users";
     }
