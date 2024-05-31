@@ -4,7 +4,6 @@ import model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -12,11 +11,7 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
-    private final EntityManager entityManager;
-
-    public UserDAOImpl(EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
+    private EntityManager entityManager;
 
     @Override
     public void save(User user) {

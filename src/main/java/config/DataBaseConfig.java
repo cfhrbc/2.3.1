@@ -17,7 +17,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:database.properties")
-@ComponentScan("java")
+@ComponentScan({"config", "controller", "dao", "model", "service"})
 @EnableTransactionManagement
 public class DataBaseConfig {
     private final Environment env;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <title>Users</title>
     <meta charset="UTF-8">
@@ -7,10 +7,18 @@
 <body>
 <h1>Users</h1>
 <form action="/users/add" method="post">
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="text" name="lastName" placeholder="Last Name" required>
-    <input type="number" name="age" placeholder="Age" required>
-    <input type="email" name="email" placeholder="Email" required>
+    <label>
+        <input type="text" name="name" placeholder="Name" required>
+    </label>
+    <label>
+        <input type="text" name="lastName" placeholder="Last Name" required>
+    </label>
+    <label>
+        <input type="number" name="age" placeholder="Age" required>
+    </label>
+    <label>
+        <input type="email" name="email" placeholder="Email" required>
+    </label>
     <button type="submit">Add User</button>
 </form>
 <ul>
@@ -21,10 +29,18 @@
         <span th:text="${user.email}">Email</span>
         <form action="/users/update" method="post" style="display:inline;">
             <input type="hidden" name="id" th:value="${user.id}">
-            <input type="text" name="name" th:value="${user.name}" required>
-            <input type="text" name="lastName" th:value="${user.lastName}" required>
-            <input type="number" name="age" th:value="${user.age}" required>
-            <input type="email" name="email" th:value="${user.email}" required>
+            <label>
+                <input type="text" name="name" th:value="${user.name}" required>
+            </label>
+            <label>
+                <input type="text" name="lastName" th:value="${user.lastName}" required>
+            </label>
+            <label>
+                <input type="number" name="age" th:value="${user.age}" required>
+            </label>
+            <label>
+                <input type="email" name="email" th:value="${user.email}" required>
+            </label>
             <button type="submit">Update</button>
         </form>
         <form action="/users/delete" method="post" style="display:inline;">
